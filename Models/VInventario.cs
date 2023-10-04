@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace apiSqlserver.Models;
-
+[Keyless]
 public partial class VInventario
 {
     public int LibroId { get; set; }

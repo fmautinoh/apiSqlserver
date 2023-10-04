@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace apiSqlserver.Models;
-
+[Keyless]
 public partial class VInvReporte
 {
     public string Codigo { get; set; } = null!;

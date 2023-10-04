@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using apiSqlserver.Models;
 
 namespace apiSqlserver.Models;
 
@@ -14,8 +15,6 @@ public partial class DatabaseContext : DbContext
         : base(options)
     {
     }
-
-    public virtual DbSet<Autenticidad> Autenticidads { get; set; }
 
     public virtual DbSet<Autore> Autores { get; set; }
 
@@ -35,21 +34,19 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-    public virtual DbSet<VAutor> VAutors { get; set; }
+    public virtual DbSet<Autenticidad> autenticidads { get; set; }
 
-    public virtual DbSet<VInvReporte> VInvReportes { get; set; }
+    public virtual DbSet<VAutor> v_autors { get; set; }
 
-    public virtual DbSet<VInventario> VInventarios { get; set; }
+    public virtual DbSet<VInvReporte> v_inv_reportes { get; set; }
 
-    public virtual DbSet<VLibro> VLibros { get; set; }
+    public virtual DbSet<VInventario> v_inventarios { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=localhost, 14333;Database=inventariobiblioteca;Persist Security Info=False;User ID=sa; Password=Ro@t20042002;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
+    public virtual DbSet<VLibro> v_libros { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder ModelBuilder)
+   protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        ModelBuilder.Entity<Autenticidad>(entity =>
+        modelBuilder.Entity<Autenticidad>(entity =>
         {
             entity.HasKey(e => e.AutenticidadId).HasName("PK__autentic__3A49172C87595F76");
 
@@ -62,7 +59,7 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("autenticidad");
         });
 
-        ModelBuilder.Entity<Autore>(entity =>
+        modelBuilder.Entity<Autore>(entity =>
         {
             entity.HasKey(e => e.AutorId).HasName("PK__Autores__F58AE90910D8AD6A");
 
@@ -78,7 +75,7 @@ public partial class DatabaseContext : DbContext
                 .HasConstraintName("FK__Autores__TipoAut__3D5E1FD2");
         });
 
-        ModelBuilder.Entity<EstadoConservacion>(entity =>
+        modelBuilder.Entity<EstadoConservacion>(entity =>
         {
             entity.HasKey(e => e.EstadoId).HasName("PK__EstadoCo__FEF86B602F0006EC");
 
@@ -95,7 +92,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Valor).HasColumnName("valor");
         });
 
-        ModelBuilder.Entity<InventarioLibro>(entity =>
+        modelBuilder.Entity<InventarioLibro>(entity =>
         {
             entity.HasKey(e => e.InventarioId).HasName("PK__Inventar__FB8A24B783D23630");
 
@@ -125,7 +122,7 @@ public partial class DatabaseContext : DbContext
                 .HasConstraintName("FK__Inventari__Libro__4AB81AF0");
         });
 
-        ModelBuilder.Entity<Libro>(entity =>
+        modelBuilder.Entity<Libro>(entity =>
         {
             entity.HasKey(e => e.LibroId).HasName("PK__Libros__35A1EC8D56C63F05");
 
@@ -144,7 +141,7 @@ public partial class DatabaseContext : DbContext
                 .HasConstraintName("FK__Libros__TipoID__4222D4EF");
         });
 
-        ModelBuilder.Entity<LibrosAutore>(entity =>
+        modelBuilder.Entity<LibrosAutore>(entity =>
         {
             entity.HasKey(e => e.LibroAutorId).HasName("LibrosAutores_pk");
 
@@ -163,7 +160,7 @@ public partial class DatabaseContext : DbContext
                 .HasConstraintName("FK__LibrosAut__Libro__4D94879B");
         });
 
-        ModelBuilder.Entity<TipoAutor>(entity =>
+        modelBuilder.Entity<TipoAutor>(entity =>
         {
             entity.HasKey(e => e.TipoAutorId).HasName("PK__TipoAuto__39C500C34AFEE1AC");
 
@@ -176,7 +173,7 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("TipoAutor");
         });
 
-        ModelBuilder.Entity<TipoLibro>(entity =>
+        modelBuilder.Entity<TipoLibro>(entity =>
         {
             entity.HasKey(e => e.TipoLibroId).HasName("PK__TipoLibr__D5FDC1D54D51CEFE");
 
@@ -189,7 +186,7 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("TipoLibro");
         });
 
-        ModelBuilder.Entity<TipoUsuario>(entity =>
+        modelBuilder.Entity<TipoUsuario>(entity =>
         {
             entity.HasKey(e => e.TipousuarioId).HasName("PK__TipoUsua__3FA4F4009D6C1B62");
 
@@ -201,7 +198,7 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("tipousuario");
         });
 
-        ModelBuilder.Entity<Usuario>(entity =>
+        modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasKey(e => e.UsuarioId).HasName("PK__Usuario__2B3DE7B807425F12");
 
@@ -221,7 +218,7 @@ public partial class DatabaseContext : DbContext
                 .HasConstraintName("FK__Usuario__Tipousu__5535A963");
         });
 
-        ModelBuilder.Entity<VAutor>(entity =>
+        modelBuilder.Entity<VAutor>(entity =>
         {
             entity
                 .HasNoKey()
@@ -237,7 +234,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.TipoAutorId).HasColumnName("TipoAutorID");
         });
 
-        ModelBuilder.Entity<VInvReporte>(entity =>
+        modelBuilder.Entity<VInvReporte>(entity =>
         {
             entity
                 .HasNoKey()
@@ -266,7 +263,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Valor).HasColumnName("valor");
         });
 
-        ModelBuilder.Entity<VInventario>(entity =>
+        modelBuilder.Entity<VInventario>(entity =>
         {
             entity
                 .HasNoKey()
@@ -293,7 +290,7 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Valor).HasColumnName("valor");
         });
 
-        ModelBuilder.Entity<VLibro>(entity =>
+        modelBuilder.Entity<VLibro>(entity =>
         {
             entity
                 .HasNoKey()
@@ -316,8 +313,8 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.TipoLibroId).HasColumnName("TipoLibroID");
         });
 
-        OnModelCreatingPartial(ModelBuilder);
+        OnModelCreatingPartial(modelBuilder);
     }
 
-    partial void OnModelCreatingPartial(ModelBuilder ModelsBuilder);
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

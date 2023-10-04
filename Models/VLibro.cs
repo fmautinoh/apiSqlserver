@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using apiSqlserver.Models.ModelsDto;
+using Microsoft.EntityFrameworkCore;
 
 namespace apiSqlserver.Models;
-
+[Keyless]
 public partial class VLibro
 {
     public int LibroId { get; set; }

@@ -21,7 +21,7 @@ namespace apiSqlserver.Repositorio
         public async Task<List<VLibro>> ListLibrosConAutores()
         {
             // Fetch the grouped books without including the authors
-            var librosGrouped = await _context.VLibros
+            var librosGrouped = await _context.v_libros
                 .GroupBy(libro => libro.LibroId)
                 .Select(group => new VLibro
                 {
@@ -36,7 +36,7 @@ namespace apiSqlserver.Repositorio
                 .ToListAsync();
 
             // Fetch the authors separately
-            var autores = await _context.VLibros
+            var autores = await _context.v_libros
                 .Select(libro => new { libro.LibroId, libro.AutorId, libro.NombreAutor })
                 .Distinct()
                 .ToListAsync();
@@ -56,7 +56,7 @@ namespace apiSqlserver.Repositorio
         public async Task<VLibro> GetLibroConAutoresPorLibroid(int libroid)
         {
             // Fetch the grouped book without including the authors
-            var libroGrouped = await _context.VLibros
+            var libroGrouped = await _context.v_libros
                 .Where(libro => libro.LibroId == libroid)
                 .Select(group => new VLibro
                 {
@@ -74,7 +74,7 @@ namespace apiSqlserver.Repositorio
             if (libroGrouped != null)
             {
                 // Fetch the authors for the specified libro
-                var autores = await _context.VLibros
+                var autores = await _context.v_libros
                     .Where(libro => libro.LibroId == libroid && libro.AutorId != 0) // Exclude entries with autorId = 0
                     .Select(a => new AutorDtosList { AutorId = (int)a.AutorId, NombreAutor = a.NombreAutor })
                     .ToListAsync();
