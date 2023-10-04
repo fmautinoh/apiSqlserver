@@ -6,7 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using apiSqlserver.Services;
 using Microsoft.EntityFrameworkCore;
-using Autofac;
 
 var builder = WebApplication.CreateBuilder(args);
 
