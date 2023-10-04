@@ -2,7 +2,7 @@
 using apiSqlserver.Repositorio;
 using apiSqlserver.Repositorio.IRepositorio.IReporteRepositorio;
 
-namespace InventarioBiblioteca.Repositorio.ReporteRepositorio
+namespace apiSqlserver.Repositorio.ReporteRepositorio
 {
     public class InvReporteRepositorio : ReaderRepositorio<VInvReporte>, IRepoteInventarioRepositorio
     {
